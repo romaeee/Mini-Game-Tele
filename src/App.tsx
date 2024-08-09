@@ -11,7 +11,7 @@ const App: React.FC = () => {
   const [isShopWindowOpen, setIsShopWindowOpen] = useState(false);
 
   const levelNames = [
-    "Bronze",    // From 0 to 4999 coins
+    "Bronze Poop",    // From 0 to 4999 coins
     "Silver Poop",    // From 5000 coins to 24,999 coins
     "Gold Poop",      // From 25,000 coins to 99,999 coins
     "Platinum Poop",  // From 100,000 coins to 999,999 coins
