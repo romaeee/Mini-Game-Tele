@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import WebApp from '@twa-dev/sdk';
 import './App.css';
-import Hamster from './icons/Hamster';
+import Character from './icons/Hamster';
 import { dollarCoin, mainCharacter } from './images';
 import ShopWindow from'./ShopWindow';
 
@@ -11,7 +11,7 @@ const App: React.FC = () => {
   const [isShopWindowOpen, setIsShopWindowOpen] = useState(false);
 
   const levelNames = [
-    "Bronze Poop",    // From 0 to 4999 coins
+    "Bronze",    // From 0 to 4999 coins
     "Silver Poop",    // From 5000 coins to 24,999 coins
     "Gold Poop",      // From 25,000 coins to 99,999 coins
     "Platinum Poop",  // From 100,000 coins to 999,999 coins
@@ -59,29 +59,6 @@ const App: React.FC = () => {
       setUserData(WebApp.initDataUnsafe.user as UserData);
     }
   }, []);
-
-  useEffect(() => {
-    if (userData) {
-      fetch('./create-user.ts', { // Исправьте путь на относительный путь к вашему API
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: userData.id.toString(), // Преобразуйте id в строку
-          name: userData.first_name,
-        }),
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => console.log(data))
-      .catch((error) => console.error('Error:', error));
-    }
-  }, [userData]);
 
   useEffect(() => {
     localStorage.setItem('points', points.toString());
@@ -158,7 +135,7 @@ const App: React.FC = () => {
         <div className="px-4 z-10">
           <div className="flex items-center space-x-2 pt-4">
             <div className="p-1 rounded-lg bg-[#1d2025]">
-              <Hamster size={24} className="text-[#d4d4d4]" />
+              <Character size={24} className="text-[#d4d4d4]" />
             </div>
             <div>
             <p className="text-sm">{userData?.first_name || 'Player'}{' poop id: '}{userData?.id}</p>
