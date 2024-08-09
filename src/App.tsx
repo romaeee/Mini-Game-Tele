@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import WebApp from '@twa-dev/sdk';
+import WebApp from '@twa-dev/sdk';
 import './App.css';
 import Hamster from './icons/Hamster';
 import { dollarCoin, mainCharacter } from './images';
@@ -12,7 +12,7 @@ const App: React.FC = () => {
 
   const levelNames = [
     "Bronze Poop",    // From 0 to 4999 coins
-    "Silver Poop",    // From 5000 coins to 24,999 coins
+    "Silver Poo",    // From 5000 coins to 24,999 coins
     "Gold Poop",      // From 25,000 coins to 99,999 coins
     "Platinum Poop",  // From 100,000 coins to 999,999 coins
     "Diamond Poop",   // From 1,000,000 coins to 2,000,000 coins
@@ -54,11 +54,11 @@ const App: React.FC = () => {
     is_premium?: boolean;
   }
 
-  // useEffect(() => {
-  //   if (WebApp.initDataUnsafe.user) {
-  //     setUserData(WebApp.initDataUnsafe.user as UserData);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (WebApp.initDataUnsafe.user) {
+      setUserData(WebApp.initDataUnsafe.user as UserData);
+    }
+  }, []);
 
   useEffect(() => {
     if (userData) {
