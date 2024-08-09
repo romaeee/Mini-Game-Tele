@@ -130,7 +130,7 @@ const App: React.FC = () => {
        {isShopWindowOpen ? (
         <ShopWindow points={points} onClose={() => setIsShopWindowOpen(false)} onPointsChange={updatePoints} />
       ) : (
-    <div className="bg-black flex justify-center pb-20">
+    <div className="bg-black flex justify-center">
       <div className="w-full bg-black text-white h-[100vh] font-bold flex flex-col max-w-xl"> 
         <div className="px-4 z-10">
           <div className="flex items-center space-x-2 pt-4">
@@ -179,12 +179,9 @@ const App: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div className="px-4 mt-4 flex justify-center">
+            <div className="absolute bottom-4 left-0 right-0 flex justify-around px-4">
           <button
-            className="bg-red-500 text-white px-4 py-2 rounded-full items-end"
+            className="bg-red-500 text-white px-4 py-2 rounded-full"
             onClick={resetProgress}
           >
             Reset Progress
@@ -197,6 +194,8 @@ const App: React.FC = () => {
           </button>
         </div>
       </div>
+    </div>
+  </div>
 
       {clicks.map((click) => (
         <div
