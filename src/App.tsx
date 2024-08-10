@@ -53,7 +53,8 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
-    WebApp.expand();  // Расширение WebApp на весь экран
+    WebApp.expand();
+    WebApp.headerColor = '#000000';
     if (WebApp.initDataUnsafe.user) {
       setUserData(WebApp.initDataUnsafe.user as UserData);
     }
