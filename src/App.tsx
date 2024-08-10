@@ -36,9 +36,7 @@ const App: React.FC = () => {
 
   const [userData, setUserData] = useState<UserData | null>(null);
   const [levelIndex, setLevelIndex] = useState(1);
-  const [points, setPoints] = useState(() => {
-    return Number(localStorage.getItem('points')) || 1;
-  });
+  const [points, setPoints] = useState<number>(1);
   const [clicks, setClicks] = useState<{ id: number, x: number, y: number }[]>([]);
   const pointsToAdd = 1; // numbers of points to add
   const profitPerHour = 1;
@@ -54,14 +52,36 @@ const App: React.FC = () => {
 
   useEffect(() => {
     WebApp.expand();
-    WebApp.headerColor = '#000000';
     if (WebApp.initDataUnsafe.user) {
       setUserData(WebApp.initDataUnsafe.user as UserData);
     }
   }, []);
 
+  // Загружаем данные из webapp.CloudStorage
   useEffect(() => {
-    localStorage.setItem('points', points.toString());
+    const loadPoints = async () => {
+      try {
+        const storedPoints = await WebApp.CloudStorage.get('points');
+        if (storedPoints !== null) {
+          setPoints(Number(storedPoints));
+        }
+      } catch (error) {
+        console.error('Ошибка загрузки очков:', error);
+      }
+    };
+    loadPoints();
+  }, []);
+
+  // Сохраняем данные в webapp.CloudStorage при изменении points
+  useEffect(() => {
+    const savePoints = async () => {
+      try {
+        await WebApp.CloudStorage.set('points', points.toString());
+      } catch (error) {
+        console.error('Ошибка сохранения очков:', error);
+      }
+    };
+    savePoints();
   }, [points]);
   
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -111,17 +131,25 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, [profitPerHour]);
 
-  const resetProgress = () => {
+  const resetProgress = async () => {
     setPoints(0);
     setLevelIndex(1);
-    localStorage.removeItem('points');
+    try {
+      await WebApp.CloudStorage.set('points', '0');
+    } catch (error) {
+      console.error('Ошибка сброса очков:', error);
+    }
   };
 
   const openShop = () => setIsShopWindowOpen(true);
 
-  const updatePoints = (newPoints: number) => {
+  const updatePoints = async (newPoints: number) => {
     setPoints(newPoints);
-    localStorage.setItem('points', newPoints.toString());
+    try {
+      await WebApp.CloudStorage.set('points', newPoints.toString());
+    } catch (error) {
+      console.error('Ошибка обновления очков:', error);
+    }
   };
   
   return (
@@ -168,44 +196,34 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            <div className="px-4 mt-4 flex justify-center">
-              <div
-                className="w-80 h-80 p-4 rounded-full circle-outer"
-                onClick={handleCardClick}
-              >
-                <div className="w-full h-full rounded-full circle-inner">
-                  <img src={mainCharacter} alt="Main Character Pic" className="w-full h-full" />
-                </div>
-              </div>
+            <div className="flex justify-center p-4 mt-4" onClick={handleCardClick}>
+              <img src={mainCharacter} alt="Main Character" className="w-32 h-32" />
             </div>
-            <div className="absolute bottom-4 left-0 right-0 flex justify-around px-4">
-          <button
-            className="bg-red-500 text-white px-4 py-2 rounded-full"
-            onClick={resetProgress}
-          >
-            Reset Progress
-          </button>
-          <button
-            className="bg-green-500 text-white px-4 py-2 rounded-full"
-            onClick={openShop}
-          >
-            Shop
-          </button>
+
+            <div className="absolute bottom-5 w-full px-4 flex justify-between items-center">
+              <button className="flex items-center justify-center p-3 bg-[#343941] rounded-full text-[#f3ba2f]" onClick={resetProgress}>
+                <span>Reset Progress</span>
+              </button>
+              <button className="flex items-center justify-center p-3 bg-[#343941] rounded-full text-[#f3ba2f]" onClick={openShop}>
+                <span>Shop</span>
+              </button>
+            </div>
+          </div>
         </div>
+
+        {clicks.map((click) => (
+          <div
+            key={click.id}
+            className="absolute text-2xl text-white"
+            style={{ left: click.x, top: click.y }}
+            onAnimationEnd={() => handleAnimationEnd(click.id)}
+          >
+            +{pointsToAdd}
+          </div>
+        ))}
       </div>
     </div>
-  </div>
-
-      {clicks.map((click) => (
-        <div
-          key={click.id}
-          className="click-circle"
-          style={{ left: click.x, top: click.y }}
-          onAnimationEnd={() => handleAnimationEnd(click.id)}
-        />
-      ))}
-    </div>
-    )}
+       )}
     </>
   );
 };
