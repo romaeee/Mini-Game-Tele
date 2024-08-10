@@ -53,8 +53,7 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
-    WebApp.expand();
-    WebApp.headerColor = '#000000';
+    WebApp.expand();  // Расширение WebApp на весь экран
     if (WebApp.initDataUnsafe.user) {
       setUserData(WebApp.initDataUnsafe.user as UserData);
     }
@@ -196,14 +195,20 @@ const App: React.FC = () => {
     </div>
   </div>
 
-      {clicks.map((click) => (
-        <div
-          key={click.id}
-          className="click-circle"
-          style={{ left: click.x, top: click.y }}
-          onAnimationEnd={() => handleAnimationEnd(click.id)}
-        />
-      ))}
+  {clicks.map((click) => (
+  <div
+    key={click.id}
+    className="absolute text-5xl font-bold opacity-0 text-white pointer-events-none"
+    style={{
+      top: `${click.y - 42}px`,
+      left: `${click.x - 28}px`,
+      animation: `float 1s ease-out`
+    }}
+    onAnimationEnd={() => handleAnimationEnd(click.id)}
+  >
+    +{pointsToAdd}
+  </div>
+))}
     </div>
     )}
     </>
