@@ -3,11 +3,9 @@ import WebApp from '@twa-dev/sdk';
 import './App.css';
 import Character from './icons/Hamster';
 import { dollarCoin, mainCharacter } from './images';
-import ShopWindow from'./ShopWindow';
-
+import ShopWindow from './ShopWindow';
 
 const App: React.FC = () => {
-
   const [isShopWindowOpen, setIsShopWindowOpen] = useState(false);
 
   const levelNames = [
@@ -55,6 +53,7 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
+    WebApp.expand();  // Расширение WebApp на весь экран
     if (WebApp.initDataUnsafe.user) {
       setUserData(WebApp.initDataUnsafe.user as UserData);
     }
@@ -70,7 +69,6 @@ const App: React.FC = () => {
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
 
-    
     card.style.transform = `perspective(1000px) rotateX(${-y / 10}deg) rotateY(${x / 10}deg)`;
     setTimeout(() => {
       card.style.transform = '';
@@ -200,19 +198,13 @@ const App: React.FC = () => {
       {clicks.map((click) => (
         <div
           key={click.id}
-          className="absolute text-5xl font-bold opacity-0 text-white pointer-events-none"
-          style={{
-            top: `${click.y - 42}px`,
-            left: `${click.x - 28}px`,
-            animation: `float 1s ease-out`
-          }}
+          className="click-circle"
+          style={{ left: click.x, top: click.y }}
           onAnimationEnd={() => handleAnimationEnd(click.id)}
-        >
-          +{pointsToAdd}
-        </div>
+        />
       ))}
-      </div>
-      )}
+    </div>
+    )}
     </>
   );
 };
