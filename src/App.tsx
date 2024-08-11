@@ -122,6 +122,10 @@ const App: React.FC = () => {
     setPoints(newPoints);
     localStorage.setItem('points', newPoints.toString());
   };
+
+  document.addEventListener('touchmove', function(event) {
+    event.preventDefault();
+}, { passive: false });
   
   return (
     <>
@@ -188,7 +192,7 @@ const App: React.FC = () => {
             className="bg-green-500 text-white px-4 py-2 rounded-full"
             onClick={openShop}
           >
-            Shop
+            Shop_
           </button>
         </div>
       </div>
