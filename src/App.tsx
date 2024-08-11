@@ -7,6 +7,11 @@ import ShopWindow from './ShopWindow';
 
 
 const App: React.FC = () => {
+
+  document.addEventListener('touchmove', function(event) {
+    event.preventDefault();
+  }, { passive: true });
+  
   const [isShopWindowOpen, setIsShopWindowOpen] = useState(false);
 
   const levelNames = [
