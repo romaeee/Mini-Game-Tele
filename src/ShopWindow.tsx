@@ -30,7 +30,7 @@ const ShopWindow: React.FC<ShopWindowProps> = ({ onClose, points, onPointsChange
       onPointsChange(points - price); // Deduct the points
       setSelectedItem(null); // Clear selection after purchase
     } else {
-      WebApp.showPopup('Not enough points!');
+      WebApp.showAlert('Not enough points!');
       // alert('Not enough points!');
     }
   };
