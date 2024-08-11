@@ -5,6 +5,10 @@ import Character from './icons/Hamster';
 import { dollarCoin, mainCharacter } from './images';
 import ShopWindow from './ShopWindow';
 
+document.addEventListener('touchmove', function(event) {
+  event.preventDefault();
+}, { passive: false });
+
 const App: React.FC = () => {
   const [isShopWindowOpen, setIsShopWindowOpen] = useState(false);
 
@@ -123,21 +127,6 @@ const App: React.FC = () => {
     localStorage.setItem('points', newPoints.toString());
   };
 // awoid touch effect
-let startY: number;
-
-document.addEventListener('touchstart', function(event) {
-    startY = event.touches[0].clientY;
-});
-
-document.addEventListener('touchmove', function(event) {
-    let moveY = event.touches[0].clientY;
-    let deltaY = Math.abs(moveY - startY);
-
-    // Если движение по вертикали меньше 10 пикселей, предотвращаем стандартное поведение
-    if (deltaY < 10) {
-        event.preventDefault();
-    }
-}, { passive: false });
   
   return (
     <>
