@@ -122,7 +122,7 @@ const App: React.FC = () => {
     setPoints(newPoints);
     localStorage.setItem('points', newPoints.toString());
   };
-
+// awoid touch effect
   document.addEventListener('touchmove', function(event) {
     event.preventDefault();
 }, { passive: false });
@@ -133,7 +133,7 @@ const App: React.FC = () => {
         <ShopWindow points={points} onClose={() => setIsShopWindowOpen(false)} onPointsChange={updatePoints} />
       ) : (
     <div className="bg-black flex justify-center">
-      <div className="w-full bg-black text-white h-[100vh] font-bold flex flex-col max-w-xl"> 
+      <div className="w-full bg-black text-white h-[150vh] font-bold flex flex-col max-w-xl"> 
         <div className="px-4 z-10">
           <div className="flex items-center space-x-2 pt-4">
             <div className="p-1 rounded-lg bg-[#1d2025]">
@@ -192,7 +192,7 @@ const App: React.FC = () => {
             className="bg-green-500 text-white px-4 py-2 rounded-full"
             onClick={openShop}
           >
-            Shop_
+            Shop
           </button>
         </div>
       </div>
