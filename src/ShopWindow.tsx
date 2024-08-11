@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import WebApp from '@twa-dev/sdk';
 
 interface ShopWindowProps {
   onClose: () => void;
@@ -29,7 +30,8 @@ const ShopWindow: React.FC<ShopWindowProps> = ({ onClose, points, onPointsChange
       onPointsChange(points - price); // Deduct the points
       setSelectedItem(null); // Clear selection after purchase
     } else {
-      alert('Not enough points!');
+      WebApp.showAlert('Not enough points!');
+      // alert('Not enough points!');
     }
   };
 
