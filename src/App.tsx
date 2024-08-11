@@ -59,12 +59,13 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
-    WebApp.expand();  // Расширение WebApp на весь экран
+    WebApp.expand();  // Full screen
+    WebApp.headerColor = '#000000';
     if (WebApp.initDataUnsafe.user) {
       setUserData(WebApp.initDataUnsafe.user as UserData);
     }
   }, []);
-
+// awoid close app on swipe
   useEffect(() => {
     const handleTouchMove = (event: { preventDefault: () => void; }) => {
       if (isShopWindowOpen) {
@@ -144,7 +145,6 @@ const App: React.FC = () => {
     setPoints(newPoints);
     localStorage.setItem('points', newPoints.toString());
   };
-// awoid touch effect
   
   return (
     <>
