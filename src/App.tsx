@@ -124,9 +124,7 @@ const App: React.FC = () => {
   };
 // awoid touch effect
 document.addEventListener('touchmove', function(event) {
-  if (event.touches[0].clientY < 50 || event.touches[0].clientY > window.innerHeight - 50) {
-      event.preventDefault();
-  }
+  event.preventDefault();
 }, { passive: false });
   
   return (
