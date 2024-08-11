@@ -6,10 +6,6 @@
   box-shadow: 0 -26px 20px rgba(243, 186, 47, 0.3);
 }
 
-body {
-  touch-action: none;
-}
-
 /* Define the keyframes for the blinking animation */
 @keyframes blink {
   0% {
