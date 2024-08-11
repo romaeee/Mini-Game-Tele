@@ -123,8 +123,10 @@ const App: React.FC = () => {
     localStorage.setItem('points', newPoints.toString());
   };
 // awoid touch effect
-  document.addEventListener('touchmove', function(event) {
-    event.preventDefault();
+document.addEventListener('touchmove', function(event) {
+  if (event.touches[0].clientY < 50 || event.touches[0].clientY > window.innerHeight - 50) {
+      event.preventDefault();
+  }
 }, { passive: false });
   
   return (
@@ -192,7 +194,7 @@ const App: React.FC = () => {
             className="bg-green-500 text-white px-4 py-2 rounded-full"
             onClick={openShop}
           >
-            Shop
+            Shop.
           </button>
         </div>
       </div>
