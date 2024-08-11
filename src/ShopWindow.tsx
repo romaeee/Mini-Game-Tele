@@ -21,9 +21,6 @@ const shopItems = [
 
 
 const ShopWindow: React.FC<ShopWindowProps> = ({ onClose, points, onPointsChange }) => {
-  document.addEventListener('touchmove', function(event) {
-    event.preventDefault();
-  }, { passive: false });
 
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
 

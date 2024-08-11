@@ -66,6 +66,22 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const handleTouchMove = (event: { preventDefault: () => void; }) => {
+      if (isShopWindowOpen) {
+        event.preventDefault();
+      }
+    };
+
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      document.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [isShopWindowOpen]);
+
+  
+
+  useEffect(() => {
     localStorage.setItem('points', points.toString());
   }, [points]);
   
@@ -195,7 +211,7 @@ const App: React.FC = () => {
             className="bg-green-500 text-white px-4 py-2 rounded-full"
             onClick={openShop}
           >
-            Shop.
+            Shop
           </button>
         </div>
       </div>
