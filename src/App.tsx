@@ -152,7 +152,7 @@ const App: React.FC = () => {
         <ShopWindow points={points} onClose={() => setIsShopWindowOpen(false)} onPointsChange={updatePoints} />
       ) : (
     <div className="bg-black flex justify-center">
-      <div className="w-full bg-black text-white h-[110vh] font-bold flex flex-col max-w-xl"> 
+      <div className="w-full bg-black text-white h-[105vh] font-bold flex flex-col max-w-xl"> 
         <div className="px-4 z-10">
           <div className="flex items-center space-x-2 pt-4">
             <div className="p-1 rounded-lg bg-[#1d2025]">
